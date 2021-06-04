@@ -35,13 +35,13 @@ class TileClass(pygame.Rect):
 			self.walkable = False
 			TileClass.SolidGroup.append(self)
 			if self.level == "level1":
-				self.image = pygame.image.load("img/tile_level1.png")
+				self.image = pygame.image.load("images/tiles/tile_level1.png")
 			elif self.level == "level2":
-				self.image = pygame.image.load("img/tile_level2.png")
+				self.image = pygame.image.load("images/tiles/tile_level2.png")
 			elif self.level == "level3":
-				self.image = pygame.image.load("img/tile_level3.png")
+				self.image = pygame.image.load("images/tiles/tile_level3.png")
 			else:
-				self.image = pygame.image.load("img/tile_level1.png")
+				self.image = pygame.image.load("images/tiles/tile_level1.png")
 
 		pygame.Rect.__init__(self, (x, y), (TileClass.width, TileClass.height))
 

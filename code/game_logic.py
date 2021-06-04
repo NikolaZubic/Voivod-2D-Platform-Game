@@ -5,6 +5,7 @@ import characters_classes
 import tiles
 import animations
 from time import time
+import random
 
 
 def game_dynamics(player):
@@ -19,16 +20,17 @@ def game_dynamics(player):
             if now - player.last_shoot >= player.shooting_reload:
                 player.last_shoot = now
                 p = characters_classes.PlayerProjectile(player.rect.x, player.rect.y, 25, 11,
-                                                        "img/playerAnimation/player_weapon.png")
+                                                        "images/animations/playerAnimation/player_weapon.png")
 
-                laser = pygame.mixer.Sound("sword swing.ogg")
+                laser = pygame.mixer.Sound("sounds/in_game_effects/player_shoot.ogg")
                 pygame.mixer.Sound.play(laser)
 
                 if characters_classes.Player.moving_right:
                     p.velocity_x = 10
                 else:
                     p.velocity_x = -10
-                    p.image = pygame.transform.flip(pygame.image.load("img/playerAnimation/player_weapon.png"), True, False)
+                    p.image = pygame.transform.flip(pygame.image.load(
+                        "images/animations/playerAnimation/player_weapon.png"), True, False)
 
     keys = pygame.key.get_pressed()
 
@@ -79,42 +81,44 @@ def game_dynamics(player):
 
             if now - boss.last_shoot >= boss.shooting_reload:
                 boss.last_shoot = now
-                laser = pygame.mixer.Sound("RetroLaser1.wav")
-                pygame.mixer.Sound.play(laser)
+                laser = pygame.mixer.Sound("sounds/in_game_effects/dragonwithfire.ogg")
+
+                if random.uniform(0, 1) > 0.5:
+                    pygame.mixer.Sound.play(laser)
 
                 p = characters_classes.EnemyProjectile(boss.rect.x + 150, boss.rect.y + 64, 3, 3,
-                                                       "img/bossAnimation/fires/fire_1.png")
+                                                       "images/animations/bossAnimation/fires/fire_1.png")
                 p.velocity_x = -8
 
                 p = characters_classes.EnemyProjectile(boss.rect.x + 150, boss.rect.y + 64, 3, 3,
-                                                       "img/bossAnimation/fires/fire_2.png")
+                                                       "images/animations/bossAnimation/fires/fire_2.png")
                 p.velocity_x = 8
 
                 p = characters_classes.EnemyProjectile(boss.rect.x + 150, boss.rect.y + 64, 3, 3,
-                                                       "img/bossAnimation/fires/fire_3.png")
+                                                       "images/animations/bossAnimation/fires/fire_3.png")
                 p.velocity_y = 8
 
                 p = characters_classes.EnemyProjectile(boss.rect.x + 150, boss.rect.y + 64, 3, 3,
-                                                       "img/bossAnimation/fires/fire_4.png")
+                                                       "images/animations/bossAnimation/fires/fire_4.png")
                 p.velocity_y = -8
 
                 p = characters_classes.EnemyProjectile(boss.rect.x + 150, boss.rect.y + 64, 3, 3,
-                                                       "img/bossAnimation/fires/fire_5.png")
+                                                       "images/animations/bossAnimation/fires/fire_5.png")
                 p.velocity_x = 8
                 p.velocity_y = 8
 
                 p = characters_classes.EnemyProjectile(boss.rect.x + 150, boss.rect.y + 64, 3, 3,
-                                                       "img/bossAnimation/fires/fire_6.png")
+                                                       "images/animations/bossAnimation/fires/fire_6.png")
                 p.velocity_x = -8
                 p.velocity_y = -8
 
                 p = characters_classes.EnemyProjectile(boss.rect.x + 150, boss.rect.y + 64, 3, 3,
-                                                       "img/bossAnimation/fires/fire_7.png")
+                                                       "images/animations/bossAnimation/fires/fire_7.png")
                 p.velocity_x = 8
                 p.velocity_y = -8
 
                 p = characters_classes.EnemyProjectile(boss.rect.x + 150, boss.rect.y + 64, 3, 3,
-                                                       "img/bossAnimation/fires/fire_8.png")
+                                                       "images/animations/bossAnimation/fires/fire_8.png")
                 p.velocity_x = -8
                 p.velocity_y = 8
 
@@ -129,9 +133,10 @@ def game_dynamics(player):
                 if now - enemy.last_shoot >= enemy.shooting_reload:
                     enemy.last_shoot = now
 
-                    p = characters_classes.EnemyProjectile(enemy.rect.x, enemy.rect.y, 25, 11, "img/arcane.png")
-                    p.image = pygame.transform.flip(pygame.image.load("img/arcane.png"), True, False)
-                    laser = pygame.mixer.Sound("RetroLaser1.wav")
+                    p = characters_classes.EnemyProjectile(enemy.rect.x, enemy.rect.y, 25, 11,
+                                                           "images/animations/wraithAnimation/arcane.png")
+                    p.image = pygame.transform.flip(pygame.image.load("images/animations/wraithAnimation/arcane.png"), True, False)
+                    laser = pygame.mixer.Sound("sounds/in_game_effects/arcane_enemy_shoot.wav")
                     pygame.mixer.Sound.play(laser)
                     p.velocity_x = -8
 
@@ -142,8 +147,9 @@ def game_dynamics(player):
 
                 if now - enemy.last_shoot >= enemy.shooting_reload:
                     enemy.last_shoot = now
-                    p = characters_classes.EnemyProjectile(enemy.rect.x, enemy.rect.y, 25, 11, "img/arcane.png")
-                    laser = pygame.mixer.Sound("RetroLaser1.wav")
+                    p = characters_classes.EnemyProjectile(enemy.rect.x, enemy.rect.y, 25, 11,
+                                                           "images/animations/wraithAnimation/arcane.png")
+                    laser = pygame.mixer.Sound("sounds/in_game_effects/arcane_enemy_shoot.wav")
                     pygame.mixer.Sound.play(laser)
                     p.velocity_x = 8
 
@@ -155,14 +161,21 @@ def game_dynamics(player):
 
                 if now - enemy.last_shoot >= enemy.shooting_reload:
                     enemy.last_shoot = now
-                    p = characters_classes.EnemyProjectile(enemy.rect.x, enemy.rect.y, 25, 11, "img/arcane.png")
-                    laser = pygame.mixer.Sound("RetroLaser1.wav")
+                    p = characters_classes.EnemyProjectile(enemy.rect.x, enemy.rect.y, 25, 11,
+                                                           "images/animations/wraithAnimation/arcane.png")
+                    laser = pygame.mixer.Sound("sounds/in_game_effects/arcane_enemy_shoot.wav")
                     pygame.mixer.Sound.play(laser)
                     p.velocity_x = +8
 
 
 def game_collisions(player):
     for enemy in characters_classes.Enemy.Group:
+        enemy_proj = pygame.sprite.spritecollide(enemy, characters_classes.PlayerProjectile.Group, True)
+        if len(enemy_proj) > 0:
+            for _ in enemy_proj:
+                enemy.health -= 1
+
+    for enemy in characters_classes.FastEnemy.Group:
         enemy_proj = pygame.sprite.spritecollide(enemy, characters_classes.PlayerProjectile.Group, True)
         if len(enemy_proj) > 0:
             for _ in enemy_proj:
@@ -175,6 +188,10 @@ def game_collisions(player):
                 boss.health -= 1
 
     player_dead = pygame.sprite.spritecollide(player, characters_classes.Enemy.Group, True)
+    if len(player_dead) > 0:
+        player.health = 0
+
+    player_dead = pygame.sprite.spritecollide(player, characters_classes.FastEnemy.Group, True)
     if len(player_dead) > 0:
         player.health = 0
 
@@ -249,8 +266,47 @@ def game_collisions(player):
                 enemy.rect.y = tile.top + 40
             enemy.velocity_y = 0
 
+    # Fast Enemy-Walls Collisions
+    for enemy in characters_classes.FastEnemy.Group:
+        tile_hit_list = pygame.sprite.spritecollide(enemy, tiles.TileClass.SolidGroup, False)
+        for _ in tile_hit_list:
+
+            if enemy.moving_right:
+                enemy.rect.x = enemy.rect.x - 10
+                enemy.velocity_x = -enemy.velocity_x
+                enemy.image = pygame.transform.flip(enemy.image, True, False)
+            elif not enemy.moving_right:
+                enemy.rect.x = enemy.rect.x + 10
+                enemy.velocity_x = -enemy.velocity_x
+                enemy.image = pygame.transform.flip(enemy.image, True, False)
+
+        enemy.rect.y += enemy.velocity_y
+
+        tile_hit_list = pygame.sprite.spritecollide(enemy, tiles.TileClass.SolidGroup, False)
+        for tile in tile_hit_list:
+            if enemy.velocity_y > 0:
+                enemy.rect.y = tile.top - 40
+            elif enemy.velocity_y < 0:
+                enemy.rect.y = tile.top + 40
+            enemy.velocity_y = 0
+
     # Re-routing for enemies
     for enemy in characters_classes.Enemy.Group:
+        if enemy.velocity_x < 0:
+            x = enemy.rect.x - 0
+            y = enemy.rect.y + 60
+            tile = tiles.TileClass.get_tile_at(x, y)
+            if tile.type == 'empty':
+                enemy.velocity_x = -enemy.velocity_x
+        if enemy.velocity_x > 0:
+            x = enemy.rect.x + 60
+            y = enemy.rect.y + 60
+            tile = tiles.TileClass.get_tile_at(x, y)
+            if tile.type == 'empty':
+                enemy.velocity_x = -enemy.velocity_x
+
+    # Re-routing for fast enemies
+    for enemy in characters_classes.FastEnemy.Group:
         if enemy.velocity_x < 0:
             x = enemy.rect.x - 0
             y = enemy.rect.y + 60

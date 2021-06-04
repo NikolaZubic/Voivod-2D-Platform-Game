@@ -35,7 +35,7 @@ while True:
 
             if player.health <= 0:
                 dead = True
-            if len(Enemy.Group) <= 0 and len(Boss.Group) <= 0:
+            if len(Enemy.Group) <= 0 and len(FastEnemy.Group) <= 0 and len(Boss.Group) <= 0:
                 complete = True
 
             player.calc_grav()
@@ -43,6 +43,7 @@ while True:
             PlayerProjectile.movement()
             EnemyProjectile.movement()
             Enemy.update_all(display_width * TILE_SIZE)
+            FastEnemy.update_all(display_width * TILE_SIZE)
             if len(Boss.Group) > 0:
                 Boss.move()
             total_number_of_frames += 1
@@ -65,8 +66,8 @@ while True:
         # pause logic
         elif paused:
 
-            resume = MenuItem(382, 120, 276, 100, "img/button_continue.png")
-            main_menu = MenuItem(382, 240, 276, 100, "img/button_exit.png")
+            resume = MenuItem(382, 120, 276, 100, "images/buttons/button_continue.png")
+            main_menu = MenuItem(382, 240, 276, 100, "images/buttons/button_exit.png")
             BaseClass.all_game_sprites.draw(game_display)
             pygame.display.update()
             for event in pygame.event.get():
@@ -88,7 +89,7 @@ while True:
                                 TileClass.empty_tiles()
                         paused = False
 
-                        pygame.mixer.music.load("Metroid Main Menu Theme.ogg")
+                        pygame.mixer.music.load("sounds/game_music/Metroid Main Menu Theme.ogg")
                         pygame.mixer.music.play(-1)
 
                         level = 0
@@ -96,8 +97,8 @@ while True:
         # Player dead logic
         elif dead:
 
-            restart = MenuItem(382, 120, 276, 100, "img/button_restart.png")
-            main_menu = MenuItem(382, 240, 276, 100, "img/button_exit.png")
+            restart = MenuItem(382, 120, 276, 100, "images/buttons/button_restart.png")
+            main_menu = MenuItem(382, 240, 276, 100, "images/buttons/button_exit.png")
             BaseClass.all_game_sprites.draw(game_display)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -113,7 +114,7 @@ while True:
                             BaseClass.destroy(sprite, sprite.type)
                             TileClass.empty_tiles()
                         dead = False
-                        pygame.mixer.music.load("Metroid Main Menu Theme.ogg")
+                        pygame.mixer.music.load("sounds/game_music/Metroid Main Menu Theme.ogg")
                         pygame.mixer.music.play(-1)
                         level = 0
 
@@ -124,7 +125,7 @@ while True:
                                 BaseClass.destroy(sprite, sprite.type)
                                 TileClass.empty_tiles()
                         dead = False
-                        pygame.mixer.music.load("Metroid Main Menu Theme.ogg")
+                        pygame.mixer.music.load("sounds/game_music/Metroid Main Menu Theme.ogg")
                         pygame.mixer.music.play(-1)
 
                         level = 0
@@ -153,8 +154,8 @@ while True:
 
             utils.game_text(game_display, "Final score: " + str(final_score) + ", Grade: " + grade, 320, 120, 40,
                             (255, 0, 0))
-            continue_game = MenuItem(382, 180, 276, 100, "img/button_continue.png")
-            main_menu = MenuItem(382, 300, 276, 100, "img/button_exit.png")
+            continue_game = MenuItem(382, 180, 276, 100, "images/buttons/button_continue.png")
+            main_menu = MenuItem(382, 300, 276, 100, "images/buttons/button_exit.png")
             BaseClass.all_game_sprites.draw(game_display)
             pygame.display.update()
             for event in pygame.event.get():
@@ -171,7 +172,7 @@ while True:
                                 TileClass.empty_tiles()
                         complete = False
 
-                        pygame.mixer.music.load("Metroid Main Menu Theme.ogg")
+                        pygame.mixer.music.load("sounds/game_music/Metroid Main Menu Theme.ogg")
                         pygame.mixer.music.play(-1)
 
                         level = 0
@@ -184,7 +185,7 @@ while True:
                                 TileClass.empty_tiles()
                         complete = False
 
-                        pygame.mixer.music.load("Metroid Main Menu Theme.ogg")
+                        pygame.mixer.music.load("sounds/game_music/Metroid Main Menu Theme.ogg")
                         pygame.mixer.music.play(-1)
 
                         level = 0
@@ -214,7 +215,7 @@ while True:
                             BaseClass.destroy(sprite, sprite.type)
                             TileClass.empty_tiles()
 
-                    pygame.mixer.music.load("Voivod - Brain Scan (8 Bit).ogg")
+                    pygame.mixer.music.load("sounds/game_music/Voivod - Brain Scan (8 Bit).ogg")
                     pygame.mixer.music.play(-1)
                     invalids = (360, 334, 308, 282, 256, 230, 204, 205, 206, 207, 208, 232, 258, 284, 310, 336, 362,
                                 338, 257, 258, 259, 309, 310, 311, 361, 362, 329, 330, 331, 332, 371, 372, 373, 347,
@@ -224,21 +225,22 @@ while True:
                                 157, 280, 281, 255, 263, 262, 264, 57, 58, 59, 60, 117, 118, 119, 120, 261, 186, 106,
                                 161, 132, 53, 27, 265, 266, 72, 73, 182)
 
-                    background = pygame.image.load("img/first_level.jpg")
+                    background = pygame.image.load("images/levels/first_level.jpg")
 
-                    player = Player(0, display_height * TILE_SIZE - 80, 40, 40, "img/tile_level1.png")
-                    e1 = Enemy(600, 440, 40, 40, "img/tile_level1.png", 2)
-                    e2 = Enemy(620, 560, 40, 40, "img/tile_level1.png", 3)
-                    e3 = Enemy(740, 440, 40, 40, "img/tile_level1.png", 1)
-                    e4 = Enemy(2, 320, 40, 40, "img/tile_level1.png", 0)
-                    e5 = Enemy(880, 260, 40, 40, "img/tile_level1.png", 1)
-                    e6 = Enemy(480, 260, 40, 40, "img/tile_level1.png", 1)
-                    e7 = Enemy(160, 80, 40, 40, "img/tile_level1.png", 2)
-                    e8 = Enemy(520, 160, 40, 40, "img/tile_level1.png", 3)
-                    e9 = Enemy(800, 40, 40, 40, "img/tile_level1.png", 1)
+                    player = Player(0, display_height * TILE_SIZE - 80, 40, 40, "images/tiles/tile_level1.png")
+                    e1 = Enemy(600, 440, 40, 40, "images/tiles/tile_level1.png", 2)
+                    e2 = Enemy(620, 560, 40, 40, "images/tiles/tile_level1.png", 3)
+                    e3 = Enemy(740, 440, 40, 40, "images/tiles/tile_level1.png", 1)
+                    e4 = Enemy(2, 320, 40, 40, "images/tiles/tile_level1.png", 0)
+                    e5 = Enemy(880, 260, 40, 40, "images/tiles/tile_level1.png", 1)
+                    e6 = Enemy(480, 260, 40, 40, "images/tiles/tile_level1.png", 1)
+                    e7 = Enemy(160, 80, 40, 40, "images/tiles/tile_level1.png", 2)
+                    e8 = Enemy(520, 160, 40, 40, "images/tiles/tile_level1.png", 3)
+                    e9 = Enemy(800, 40, 40, 40, "images/tiles/tile_level1.png", 1)
 
                     tiles.TileClass.total_tiles = 1
                     characters_classes.Enemy.score = 0
+                    characters_classes.FastEnemy.score = 0
                     total_number_of_frames = 0
 
                     for y in range(0, game_display.get_height(), TILE_SIZE):
@@ -255,7 +257,7 @@ while True:
                         for sprite in BaseClass.all_game_sprites:
                             BaseClass.destroy(sprite, sprite.type)
                             TileClass.empty_tiles()
-                    pygame.mixer.music.load("Voivod - Ravenous Machine 8 Bit.ogg")
+                    pygame.mixer.music.load("sounds/game_music/Voivod - Ravenous Machine 8 Bit.ogg")
                     pygame.mixer.music.play(-1)
 
                     invalids = (391, 392, 393, 394, 395, 396, 397, 398, 399, 400, 401, 402, 403, 404, 405, 406, 407,
@@ -268,25 +270,26 @@ while True:
                                 252, 255, 256, 257, 258, 259, 303, 304, 305, 306, 307, 308, 309, 329, 354, 355, 356,
                                 357, 358, 359, 360, 361, 313)
 
-                    background = pygame.image.load("img/second_level.jpg")
-                    player = Player(0, display_height * TILE_SIZE - 80, 40, 40, "img/tile_level1.png")
-                    e1 = Enemy(160, 480, 40, 40, "img/tile_level1.png", 2)
-                    e2 = Enemy(0, 200, 40, 40, "img/tile_level1.png", 0)
-                    e3 = Enemy(40, 240, 40, 40, "img/tile_level1.png", 0)
-                    e4 = Enemy(280, 120, 40, 40, "img/tile_level1.png", 3)
-                    e5 = Enemy(280, 40, 40, 40, "img/tile_level1.png", 0)
-                    e6 = Enemy(600, 160, 40, 40, "img/tile_level1.png", 2)
-                    e7 = Enemy(680, 240, 40, 40, "img/tile_level1.png", 2)
-                    e8 = Enemy(600, 320, 40, 40, "img/tile_level1.png", 1)
-                    e9 = Enemy(880, 320, 40, 40, "img/tile_level1.png", 1)
+                    background = pygame.image.load("images/levels/second_level.jpg")
+                    player = Player(0, display_height * TILE_SIZE - 80, 40, 40, "images/tiles/tile_level1.png")
+                    e1 = FastEnemy(160, 480, 40, 40, "images/tiles/tile_level1.png", 6)
+                    e2 = Enemy(0, 200, 40, 40, "images/tiles/tile_level1.png", 0)
+                    e3 = Enemy(40, 240, 40, 40, "images/tiles/tile_level1.png", 0)
+                    e4 = Enemy(280, 120, 40, 40, "images/tiles/tile_level1.png", 3)
+                    e5 = Enemy(280, 40, 40, 40, "images/tiles/tile_level1.png", 0)
+                    e6 = FastEnemy(600, 160, 40, 40, "images/tiles/tile_level1.png", 6)
+                    e7 = FastEnemy(680, 240, 40, 40, "images/tiles/tile_level1.png", 6)
+                    e8 = Enemy(600, 320, 40, 40, "images/tiles/tile_level1.png", 1)
+                    e9 = Enemy(880, 320, 40, 40, "images/tiles/tile_level1.png", 1)
 
-                    e10 = Enemy(760, 400, 40, 40, "img/tile_level1.png", 1)
-                    e11 = Enemy(680, 480, 40, 40, "img/tile_level1.png", 0)
-                    e12 = Enemy(760, 560, 40, 40, "img/tile_level1.png", 2)
-                    e13 = Enemy(840, 560, 40, 40, "img/tile_level1.png", 3)
+                    e10 = FastEnemy(760, 400, 40, 40, "images/tiles/tile_level1.png", 6)
+                    e11 = Enemy(680, 480, 40, 40, "images/tiles/tile_level1.png", 1)
+                    e12 = Enemy(760, 560, 40, 40, "images/tiles/tile_level1.png", 2)
+                    e13 = Enemy(840, 560, 40, 40, "images/tiles/tile_level1.png", 3)
 
                     tiles.TileClass.total_tiles = 1
                     characters_classes.Enemy.score = 0
+                    characters_classes.FastEnemy.score = 0
                     total_number_of_frames = 0
 
                     for y in range(0, game_display.get_height(), TILE_SIZE):
@@ -303,7 +306,7 @@ while True:
                         for sprite in BaseClass.all_game_sprites:
                             BaseClass.destroy(sprite, sprite.type)
                             TileClass.empty_tiles()
-                    pygame.mixer.music.load("Ensiferum - Battle Song 8 bit.ogg")
+                    pygame.mixer.music.load("sounds/game_music/Ensiferum - Battle Song 8 bit.ogg")
                     pygame.mixer.music.play(-1)
 
                     invalids = (391, 392, 393, 394, 395, 396, 397, 398, 399, 400, 401, 402, 403, 404, 405, 406, 407,
@@ -312,13 +315,14 @@ while True:
                                 262, 235, 383, 384, 385, 386, 387, 388, 389, 390, 359, 360, 361, 362, 363, 364, 335,
                                 336, 337, 338, 310, 311, 312, 285, 286, 288, 260)
 
-                    background = pygame.image.load("img/third_level.jpg")
+                    background = pygame.image.load("images/levels/third_level.jpg")
 
-                    player = Player(360, 680, 40, 40, "img/tile_level1.png")
-                    b1 = Boss(600, 360, 300, 128, "img/boss.png")
+                    player = Player(360, 680, 40, 40, "images/tiles/tile_level1.png")
+                    b1 = Boss(600, 360, 300, 128, "images/animations/bossAnimation/boss.png")
 
                     tiles.TileClass.total_tiles = 1
                     characters_classes.Enemy.score = 0
+                    characters_classes.FastEnemy.score = 0
                     total_number_of_frames = 0
 
                     for y in range(0, game_display.get_height(), TILE_SIZE):
@@ -364,7 +368,7 @@ while True:
         utils.help_menu_text(game_display, "SPACE BAR", 382, 400, 50, (255, 255, 255))
         utils.help_menu_text(game_display, "Jumping", 382, 440, 26, (255, 255, 255))
 
-        back = MenuItem(382, 480, 276, 100, "img/button_return.png")
+        back = MenuItem(382, 480, 276, 100, "images/buttons/button_return.png")
 
         pygame.display.update()
 
@@ -374,14 +378,14 @@ while True:
             # pygame.mixer.music.load("menu.ogg")
             # pygame.mixer.music.play(-1)
             music = True
-        background = pygame.image.load("img/main_menu.jpg")
-        player = Player(-10000, -10000, 40, 40, "img/tile_level1.png")
-        voivod_logo_1 = MenuItem(53, 240, 276, 276, "img/voivod_logo.png")
-        voivod_logo_2 = MenuItem(711, 240, 276, 276, "img/voivod_logo.png")
-        start = MenuItem(382, 120, 276, 100, "img/button_start.png")
-        levels = MenuItem(382, 240, 276, 100, "img/button_levels.png")
-        controls = MenuItem(382, 360, 276, 100, "img/button_help.png")
-        quit_game = MenuItem(382, 480, 276, 100, "img/button_exit.png")
+        background = pygame.image.load("images/menu/main_menu.jpg")
+        player = Player(-10000, -10000, 40, 40, "images/tiles/tile_level1.png")
+        voivod_logo_1 = MenuItem(53, 240, 276, 276, "images/menu/voivod_logo.png")
+        voivod_logo_2 = MenuItem(711, 240, 276, 276, "images/menu/voivod_logo.png")
+        start = MenuItem(382, 120, 276, 100, "images/buttons/button_start.png")
+        levels = MenuItem(382, 240, 276, 100, "images/buttons/button_levels.png")
+        controls = MenuItem(382, 360, 276, 100, "images/buttons/button_help.png")
+        quit_game = MenuItem(382, 480, 276, 100, "images/buttons/button_exit.png")
 
         game_display.blit(background, (0, 0))
         BaseClass.all_game_sprites.draw(game_display)
@@ -394,7 +398,7 @@ while True:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mousex, mousey = pygame.mouse.get_pos()
                 if start.is_mouse_selection(mousex, mousey):
-                    pygame.mixer.music.load("Voivod - Brain Scan (8 Bit).ogg")
+                    pygame.mixer.music.load("sounds/game_music/Voivod - Brain Scan (8 Bit).ogg")
                     pygame.mixer.music.play(-1)
                     for item in MenuItem.Group:
                         item.destroy(MenuItem)
@@ -407,21 +411,22 @@ while True:
                                 157, 280, 281, 255, 263, 262, 264, 57, 58, 59, 60, 117, 118, 119, 120, 261, 186, 106,
                                 161, 132, 53, 27, 265, 266, 72, 73, 182)
 
-                    background = pygame.image.load("img/first_level.jpg")
+                    background = pygame.image.load("images/levels/first_level.jpg")
 
-                    player = Player(0, display_height * TILE_SIZE - 80, 40, 40, "img/tile_level1.png")
-                    e1 = Enemy(600, 440, 40, 40, "img/tile_level1.png", 2)
-                    e2 = Enemy(620, 560, 40, 40, "img/tile_level1.png", 3)
-                    e3 = Enemy(740, 440, 40, 40, "img/tile_level1.png", 1)
-                    e4 = Enemy(2, 320, 40, 40, "img/tile_level1.png", 0)
-                    e5 = Enemy(880, 260, 40, 40, "img/tile_level1.png", 1)
-                    e6 = Enemy(480, 260, 40, 40, "img/tile_level1.png", 1)
-                    e7 = Enemy(160, 80, 40, 40, "img/tile_level1.png", 2)
-                    e8 = Enemy(520, 160, 40, 40, "img/tile_level1.png", 3)
-                    e9 = Enemy(800, 40, 40, 40, "img/tile_level1.png", 1)
+                    player = Player(0, display_height * TILE_SIZE - 80, 40, 40, "images/tiles/tile_level1.png")
+                    e1 = Enemy(600, 440, 40, 40, "images/tiles/tile_level1.png", 2)
+                    e2 = Enemy(620, 560, 40, 40, "images/tiles/tile_level1.png", 3)
+                    e3 = Enemy(740, 440, 40, 40, "images/tiles/tile_level1.png", 1)
+                    e4 = Enemy(2, 320, 40, 40, "images/tiles/tile_level1.png", 0)
+                    e5 = Enemy(880, 260, 40, 40, "images/tiles/tile_level1.png", 1)
+                    e6 = Enemy(480, 260, 40, 40, "images/tiles/tile_level1.png", 1)
+                    e7 = Enemy(160, 80, 40, 40, "images/tiles/tile_level1.png", 2)
+                    e8 = Enemy(520, 160, 40, 40, "images/tiles/tile_level1.png", 3)
+                    e9 = Enemy(800, 40, 40, 40, "images/tiles/tile_level1.png", 1)
 
                     tiles.TileClass.total_tiles = 1
                     characters_classes.Enemy.score = 0
+                    characters_classes.FastEnemy.score = 0
                     total_number_of_frames = 0
 
                     for y in range(0, game_display.get_height(), TILE_SIZE):
@@ -435,20 +440,20 @@ while True:
                 if levels.is_mouse_selection(mousex, mousey):
                     for item in MenuItem.Group:
                         item.destroy(MenuItem)
-                    voivod_logo_1 = MenuItem(53, 240, 276, 276, "img/voivod_logo.png")
-                    voivod_logo_2 = MenuItem(711, 240, 276, 276, "img/voivod_logo.png")
+                    voivod_logo_1 = MenuItem(53, 240, 276, 276, "images/menu/voivod_logo.png")
+                    voivod_logo_2 = MenuItem(711, 240, 276, 276, "images/menu/voivod_logo.png")
 
-                    level1 = MenuItem(382, 120, 276, 100, "img/button_level1.png")
-                    level2 = MenuItem(382, 240, 276, 100, "img/button_level2.png")
-                    level3 = MenuItem(382, 360, 276, 100, "img/button_level3.png")
-                    back = MenuItem(382, 480, 276, 100, "img/button_return.png")
+                    level1 = MenuItem(382, 120, 276, 100, "images/buttons/button_level1.png")
+                    level2 = MenuItem(382, 240, 276, 100, "images/buttons/button_level2.png")
+                    level3 = MenuItem(382, 360, 276, 100, "images/buttons/button_level3.png")
+                    back = MenuItem(382, 480, 276, 100, "images/buttons/button_return.png")
 
                     level = 4
 
                 if controls.is_mouse_selection(mousex, mousey):
                     for item in MenuItem.Group:
                         item.destroy(MenuItem)
-                    back = MenuItem(382, 480, 276, 100, "img/button_return.png")
+                    back = MenuItem(382, 480, 276, 100, "images/buttons/button_return.png")
 
                     level = 5
 

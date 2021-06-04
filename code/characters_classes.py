@@ -175,6 +175,73 @@ class Enemy(BaseClass):
                 Enemy.score += 10
 
 
+class FastEnemy(BaseClass):
+    Group = pygame.sprite.Group()
+    score = 0
+
+    def __init__(self, x, y, width, height, initial_image_path, vel):
+        BaseClass.__init__(self, x, y, width, height, initial_image_path)
+        FastEnemy.Group.add(self)
+        self.velocity_x = vel
+        self.health = 4
+        self.moving_right = True
+        self.is_running = False
+        self.i = 1
+        self.type = FastEnemy
+
+    # applies gravity
+    def calc_grav(self):
+        if self.velocity_y == 0:
+            self.velocity_y = 1
+        else:
+            self.velocity_y += .55
+
+        if self.rect.y >= 640 - 80 and self.velocity_y >= 0:
+            self.velocity_y = 0
+            self.rect.y = 640 - 80
+
+    # defines movement
+    def move(self, display_width):
+        if self.is_running > 0:
+            self.is_running = True
+        if self.rect.x + self.width > display_width or self.rect.x < 0:
+            self.image = pygame.transform.flip(self.image, True, False)
+            self.velocity_x = -self.velocity_x
+
+        self.rect.x += self.velocity_x
+
+        if self.velocity_x > 0:
+            self.moving_right = True
+            if self.i >= len(animations.fast_wraith_walking):
+                self.i = 1
+            self.image = animations.fast_wraith_walking[self.i - 1]
+            self.i += 1
+        elif self.velocity_x < 0:
+            self.moving_right = False
+            if self.i >= len(animations.fast_wraith_walking):
+                self.i = 1
+            self.image = pygame.transform.flip(animations.fast_wraith_walking[self.i - 1], True, False)
+            self.i += 1
+        else:
+            if self.i >= len(animations.fast_wraith_idle):
+                self.i = 1
+            self.image = animations.fast_wraith_idle[self.i - 1]
+            self.i += 1
+
+    @staticmethod
+    def update_all(display_width):
+        for enemy in FastEnemy.Group:
+            i = 0
+            enemy.calc_grav()
+            enemy.move(display_width)
+            if enemy.health <= 0:
+                enemy.velocity_x = 0
+                enemy.image = animations.fast_wraith_dead[14]
+
+                enemy.destroy(enemy)
+                FastEnemy.score += 10
+
+
 class Boss(BaseClass):
     Group = pygame.sprite.Group()
 
