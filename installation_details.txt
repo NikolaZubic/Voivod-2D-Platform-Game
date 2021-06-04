@@ -1,0 +1,4 @@
+python3 -m pip install -U pygame
+
+To see if it works, run one of the included examples:
+python3 -m pygame.examples.aliens
