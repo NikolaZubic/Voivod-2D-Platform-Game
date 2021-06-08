@@ -354,6 +354,8 @@ while True:
                             TileClass.empty_tiles()
                     level = 0
 
+        background = pygame.image.load("images/menu/main_menu.jpg")
+
         utils.help_menu_text(game_display, "Eliminate all enemies", 382, 60, 30,
                              (255, 0, 0))
         utils.help_menu_text(game_display, "to complete each level.", 382, 80, 30,
@@ -375,13 +377,11 @@ while True:
     # title screen
     elif level == 0:
         if not music:
-            # pygame.mixer.music.load("menu.ogg")
-            # pygame.mixer.music.play(-1)
+            pygame.mixer.music.load("sounds/game_music/Metroid Main Menu Theme.ogg")
+            pygame.mixer.music.play(-1)
             music = True
-        background = pygame.image.load("images/menu/main_menu.jpg")
+        background = pygame.image.load("images/menu/main_menu.png")
         player = Player(-10000, -10000, 40, 40, "images/tiles/tile_level1.png")
-        voivod_logo_1 = MenuItem(53, 240, 276, 276, "images/menu/voivod_logo.png")
-        voivod_logo_2 = MenuItem(711, 240, 276, 276, "images/menu/voivod_logo.png")
         start = MenuItem(382, 120, 276, 100, "images/buttons/button_start.png")
         levels = MenuItem(382, 240, 276, 100, "images/buttons/button_levels.png")
         controls = MenuItem(382, 360, 276, 100, "images/buttons/button_help.png")
