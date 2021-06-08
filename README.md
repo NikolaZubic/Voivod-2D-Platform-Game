@@ -5,7 +5,8 @@ Implementation of 2D platform game in [PyGame](https://www.pygame.org/news) game
 Git clone the project and install PyGame with one command as shown in the [installation_details.txt](installation_details.txt).
 
 ## Full report
-For the final document (written in Serbian, 15 pages), check: [finalDocument.pdf](https://github.com/NikolaZubic/Voivod-2D-Platform-Game/blob/main/finalDocument.pdf)
+For the final document (written in Serbian, 15 pages), check: [finalDocument.pdf](https://github.com/NikolaZubic/Voivod-2D-Platform-Game/blob/main/finalDocument.pdf)<br>
+Presentation (written in Serbian) is available on: [presentation.pdf](https://github.com/NikolaZubic/Voivod-2D-Platform-Game/blob/main/presentation.pdf)<br>
 
 ## In motion
 ### Main menu
