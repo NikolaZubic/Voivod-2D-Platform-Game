@@ -28,8 +28,10 @@ def health_bar(game_display, player):
         pygame.draw.rect(game_display, (77, 255, 0), (10, 12, player.health, 20))
 
 
-def score(game_display, fps, total_frames):
+def score(game_display, fps, total_frames, volume):
     game_text(game_display, int(total_frames / fps), 990, 10, 35)
     game_text(game_display, characters_classes.Enemy.score, 990, 50, 35)
     game_text(game_display, "Score:", 860, 50, 35)
     game_text(game_display, "Timer:", 860, 10, 35)
+    game_text(game_display, "Volume:", 860, 610, 25)
+    game_text(game_display, volume, 950, 610, 25)

@@ -1,4 +1,6 @@
 # author: Nikola Zubic
+import pygame.mixer_music
+
 from characters_classes import *
 from game_logic import *
 from tiles import *
@@ -26,6 +28,30 @@ complete = False
 
 # Game Loop
 while True:
+    keys = pygame.key.get_pressed()
+
+    if keys[pygame.K_KP_PLUS]:
+        if pygame.mixer.music.get_volume() <= 0.75:
+            if pygame.mixer.music.get_volume() == 0.75:
+                pygame.mixer.music.set_volume(1)
+            elif pygame.mixer.music.get_volume() == 0.50:
+                pygame.mixer.music.set_volume(0.75)
+            elif pygame.mixer.music.get_volume() == 0.25:
+                pygame.mixer.music.set_volume(0.50)
+            elif pygame.mixer.music.get_volume() == 0:
+                pygame.mixer.music.set_volume(0.25)
+
+    if keys[pygame.K_KP_MINUS]:
+        if pygame.mixer.music.get_volume() >= 0.25:
+            if pygame.mixer.music.get_volume() == 1:
+                pygame.mixer.music.set_volume(0.75)
+            elif pygame.mixer.music.get_volume() == 0.75:
+                pygame.mixer.music.set_volume(0.50)
+            elif pygame.mixer.music.get_volume() == 0.50:
+                pygame.mixer.music.set_volume(0.25)
+            elif pygame.mixer.music.get_volume() == 0.25:
+                pygame.mixer.music.set_volume(0)
+
     if level != 0 and level < 4:
         if paused is False and dead is False and complete is False:
             game_dynamics(player)
@@ -56,13 +82,14 @@ while True:
                 Boss.move()
                 Boss.Group.draw(game_display)
             utils.health_bar(game_display, player)
-            utils.score(game_display, fps, total_number_of_frames)
+            utils.score(game_display, fps, total_number_of_frames, int(pygame.mixer_music.get_volume() * 100))
 
             # update display
             pygame.display.update()
 
             if keys[pygame.K_ESCAPE]:
                 paused = True
+
         # pause logic
         elif paused:
 
@@ -90,6 +117,7 @@ while True:
                         paused = False
 
                         pygame.mixer.music.load("sounds/game_music/Metroid Main Menu Theme.ogg")
+                        pygame.mixer.music.set_volume(1)
                         pygame.mixer.music.play(-1)
 
                         level = 0
@@ -115,6 +143,7 @@ while True:
                             TileClass.empty_tiles()
                         dead = False
                         pygame.mixer.music.load("sounds/game_music/Metroid Main Menu Theme.ogg")
+                        pygame.mixer.music.set_volume(1)
                         pygame.mixer.music.play(-1)
                         level = 0
 
@@ -126,6 +155,7 @@ while True:
                                 TileClass.empty_tiles()
                         dead = False
                         pygame.mixer.music.load("sounds/game_music/Metroid Main Menu Theme.ogg")
+                        pygame.mixer.music.set_volume(1)
                         pygame.mixer.music.play(-1)
 
                         level = 0
@@ -173,6 +203,7 @@ while True:
                         complete = False
 
                         pygame.mixer.music.load("sounds/game_music/Metroid Main Menu Theme.ogg")
+                        pygame.mixer.music.set_volume(1)
                         pygame.mixer.music.play(-1)
 
                         level = 0
@@ -186,6 +217,7 @@ while True:
                         complete = False
 
                         pygame.mixer.music.load("sounds/game_music/Metroid Main Menu Theme.ogg")
+                        pygame.mixer.music.set_volume(1)
                         pygame.mixer.music.play(-1)
 
                         level = 0
@@ -216,6 +248,7 @@ while True:
                             TileClass.empty_tiles()
 
                     pygame.mixer.music.load("sounds/game_music/Voivod - Brain Scan (8 Bit).ogg")
+                    pygame.mixer.music.set_volume(1)
                     pygame.mixer.music.play(-1)
                     invalids = (360, 334, 308, 282, 256, 230, 204, 205, 206, 207, 208, 232, 258, 284, 310, 336, 362,
                                 338, 257, 258, 259, 309, 310, 311, 361, 362, 329, 330, 331, 332, 371, 372, 373, 347,
@@ -258,6 +291,7 @@ while True:
                             BaseClass.destroy(sprite, sprite.type)
                             TileClass.empty_tiles()
                     pygame.mixer.music.load("sounds/game_music/Voivod - Ravenous Machine 8 Bit.ogg")
+                    pygame.mixer.music.set_volume(1)
                     pygame.mixer.music.play(-1)
 
                     invalids = (391, 392, 393, 394, 395, 396, 397, 398, 399, 400, 401, 402, 403, 404, 405, 406, 407,
@@ -307,6 +341,7 @@ while True:
                             BaseClass.destroy(sprite, sprite.type)
                             TileClass.empty_tiles()
                     pygame.mixer.music.load("sounds/game_music/Ensiferum - Battle Song 8 bit.ogg")
+                    pygame.mixer.music.set_volume(1)
                     pygame.mixer.music.play(-1)
 
                     invalids = (391, 392, 393, 394, 395, 396, 397, 398, 399, 400, 401, 402, 403, 404, 405, 406, 407,
@@ -356,19 +391,17 @@ while True:
 
         background = pygame.image.load("images/menu/main_menu.jpg")
 
-        utils.help_menu_text(game_display, "Eliminate all enemies", 382, 60, 30,
-                             (255, 0, 0))
-        utils.help_menu_text(game_display, "to complete each level.", 382, 80, 30,
-                             (255, 0, 0))
+        utils.help_menu_text(game_display, "A, D", 382, 40, 50, (255, 255, 255))
+        utils.help_menu_text(game_display, "Movement: left & right", 382, 80, 30, (255, 255, 255))
 
-        utils.help_menu_text(game_display, "A, D", 382, 160, 50, (255, 255, 255))
-        utils.help_menu_text(game_display, "Movement: left & right", 382, 200, 30, (255, 255, 255))
+        utils.help_menu_text(game_display, "MOUSE CLICK", 382, 160, 50, (255, 255, 255))
+        utils.help_menu_text(game_display, "Shooting", 382, 200, 26, (255, 255, 255))
 
-        utils.help_menu_text(game_display, "MOUSE CLICK", 382, 280, 50, (255, 255, 255))
-        utils.help_menu_text(game_display, "Shooting", 382, 320, 26, (255, 255, 255))
+        utils.help_menu_text(game_display, "SPACE BAR", 382, 280, 50, (255, 255, 255))
+        utils.help_menu_text(game_display, "Jumping", 382, 320, 26, (255, 255, 255))
 
-        utils.help_menu_text(game_display, "SPACE BAR", 382, 400, 50, (255, 255, 255))
-        utils.help_menu_text(game_display, "Jumping", 382, 440, 26, (255, 255, 255))
+        utils.help_menu_text(game_display, "+/- on numpad", 382, 400, 50, (255, 255, 255))
+        utils.help_menu_text(game_display, "Volume up/down", 382, 440, 26, (255, 255, 255))
 
         back = MenuItem(382, 480, 276, 100, "images/buttons/button_return.png")
 
@@ -378,6 +411,7 @@ while True:
     elif level == 0:
         if not music:
             pygame.mixer.music.load("sounds/game_music/Metroid Main Menu Theme.ogg")
+            pygame.mixer.music.set_volume(1)
             pygame.mixer.music.play(-1)
             music = True
         background = pygame.image.load("images/menu/main_menu.png")
@@ -399,6 +433,7 @@ while True:
                 mousex, mousey = pygame.mouse.get_pos()
                 if start.is_mouse_selection(mousex, mousey):
                     pygame.mixer.music.load("sounds/game_music/Voivod - Brain Scan (8 Bit).ogg")
+                    pygame.mixer.music.set_volume(1)
                     pygame.mixer.music.play(-1)
                     for item in MenuItem.Group:
                         item.destroy(MenuItem)
